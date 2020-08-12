@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {spinnerWorks} from "./import.js"
 import { faSync } from '@fortawesome/free-solid-svg-icons';
-
+import { faTint, faWind } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,6 +9,8 @@ import { faSync } from '@fortawesome/free-solid-svg-icons';
 })
 export class AppComponent {
   faSync = faSync;
+  faTint = faTint;
+  faWind = faWind;
   formCity: String;
   formCountry: String;
   weatherState: any = "Nothing searched yet!";

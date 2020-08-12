@@ -66,6 +66,13 @@
     align-items: center;
 }
 
+#weather-details {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    width: 100%;
+ }
+
 #celsius-degrees {
     font-size: 6rem;
     line-height: 4rem;
@@ -93,4 +100,41 @@
     font-size: 1.3rem;
     color: grey;
     margin-top: 0.5rem;
+}
+
+.wind-desc {
+    margin-top: 5px;
+}
+
+.wind-speed {
+    font-size: 1.5rem;
+}
+
+#wind, #rain {
+    display: flex;
+    width: 3rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+#snow {
+    display: flex;
+    width: 3rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 0.1rem;
+}
+
+.rain-percent {
+    margin-top: 5px;
+    font-size: 1.5rem;
+}
+
+#rain-icon {
+    height: 42px;
+}
+
+#wind-icon {
+    height: 42px;
 }
