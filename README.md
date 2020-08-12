@@ -1,5 +1,10 @@
 # WeatherAppAngular
 
+This project is still a work in progress. I will update this here with a viewable URL soon, once I've finished the project. 
+
+Estimated finish time: August 26, 2020
+
+<!-- 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version *.
 
 ## Development server
@@ -24,4 +29,4 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 ## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md). -->
