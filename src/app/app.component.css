@@ -38,11 +38,16 @@
 #container {
 
     width: 42rem;
-    height: 42rem;
+    
     background-color: white;
     border-radius: 15px;
+
+}
+
+.container-padding {
     padding-left: 2.5rem;
     padding-right: 2.5rem;
+
 }
 
 #town {
@@ -137,4 +142,71 @@
 
 #wind-icon {
     height: 42px;
+}
+
+.footer {
+    display: flex;
+    flex: 1;
+    margin-top: 4rem;
+    
+}
+
+.oneday-icon {
+    width: 5rem;
+
+}
+
+.max {
+    max-width: 100%;
+    height: auto;
+}
+
+.footer-details {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.oneday {
+    border-top: 1px solid rgba(211, 211, 211, .37);
+    flex: 1;
+    border-right: 1px solid rgba(211, 211, 211, .6);
+    padding-bottom: 1rem;
+}
+
+.day-name {
+    text-align: center;
+    padding-top: 1rem;
+    font-size: 0.7rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.footer-temp {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.lowesttemp {
+    font-size: 1.2rem;
+    color: grey;
+}
+
+.highesttemp {
+    font-size: 2rem;
+}
+
+.annotations {
+    text-align: left;
+    width: 42rem;
+    margin: 0 auto;
+    font-size: 0.75rem;
+}
+
+.oneday-secondrow {
+    display: flex;
+    justify-content: space-around;
+    flex: 1;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
