@@ -97,13 +97,12 @@
     display: flex;
 }
 
-#celsius-letter {
-    margin-left: 3rem;
+.active-letter {
     font-size: 2rem;
 }
 
-#fahrenheit-letter {
-    margin-left: 1rem;
+.inactive-letter {
+    
     font-size: 1.3rem;
     color: grey;
     margin-top: 0.5rem;
@@ -224,4 +223,14 @@
 
 .centered-wrapper {
     margin: auto;
+}
+
+#celsius-letter {
+    cursor: pointer;
+    margin-left: 3rem;
+}
+
+#fahrenheit-letter {
+    cursor: pointer;
+    margin-left: 1rem;
 }
