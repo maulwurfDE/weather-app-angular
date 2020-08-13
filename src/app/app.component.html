@@ -52,16 +52,26 @@
     <img src="./../assets/screenshot.png">
   </div>
 
-  <div class="celsius">
-    <p id="celsius-degrees">{{weatherState.temp}}°</p>
-    <p id="celsius-wording">Mostly Sunny</p>
+  <div class="celsius-units">
+
+    <div class="celsius">
+      <p id="celsius-degrees">{{weatherState.temp}}°</p>
+   
+    </div>
+  
+    <div class="fahrenheit">
+      <div id="celsius-letter" [ngClass]="{'active-letter': letterCelsius, 'inactive-letter': !letterCelsius}"  (click)="units = 'metric'; getWeather('Münster','Germany'); letterCelsius = true;">C</div>
+      <div id="fahrenheit-letter" [ngClass]="{'active-letter': !letterCelsius, 'inactive-letter': letterCelsius}" (click)="units = 'imperial'; getWeather('Münster','Germany'); letterCelsius = false;">F</div>
+    </div>
   </div>
 
-  <div class="fahrenheit">
-    <div id="celsius-letter" [ngClass]="{'active-letter': letterCelsius, 'inactive-letter': !letterCelsius}"  (click)="units = 'metric'; getWeather('Münster','Germany'); letterCelsius = true;">C</div>
-    <div id="fahrenheit-letter" [ngClass]="{'active-letter': !letterCelsius, 'inactive-letter': letterCelsius}" (click)="units = 'imperial'; getWeather('Münster','Germany'); letterCelsius = false;">F</div>
+  <p id="celsius-wording">{{weatherState.weatherDesc}}</p>
+
+
   </div>
-</div>
+
+
+
 
 <div id="weather-details">
 

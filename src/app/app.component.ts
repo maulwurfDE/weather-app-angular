@@ -45,12 +45,13 @@ export class AppComponent {
     // console.log(weatherData);
 
 
-    let weatherArr = {clouds: weatherData.clouds.all, temp: weatherData.main.temp, place: weatherData.name, country: weatherData.sys.country}
+    let weatherArr = {clouds: weatherData.clouds.all, temp: weatherData.main.temp, place: weatherData.name, country: weatherData.sys.country, weatherDesc: weatherData.weather[0].description}
 
-    console.log(weatherArr);
+    console.log(weatherData);
 
     this.weatherState = weatherArr;
     this.weatherState.temp = Math.round(this.weatherState.temp);
+    this.weatherState.weatherDesc = this.titleCase(this.weatherState.weatherDesc)
     await this.timeout(2000);
     this.reloadSpinner = false;
 
@@ -60,11 +61,19 @@ export class AppComponent {
 
   timeout(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
-
-
-
 }
 
+
+titleCase(str) {
+  var splitStr = str.toLowerCase().split(' ');
+  for (var i = 0; i < splitStr.length; i++) {
+      // You do not need to check if i is larger than splitStr length, as your for does that for you
+      // Assign it back to the array
+      splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+  }
+  // Directly return the joined string
+  return splitStr.join(' '); 
+}
 
 
 

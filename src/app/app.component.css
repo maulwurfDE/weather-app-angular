@@ -71,6 +71,7 @@
 .main-content {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 #weather-details {
@@ -83,18 +84,20 @@
 #celsius-degrees {
     font-size: 6rem;
     line-height: 4rem;
-    margin-top: 2.5rem;
 }
 
 #celsius-wording {
     color: grey;
     font-size: 2rem;
+    margin-left: 19rem;
+    margin-top: -10.5rem;
 }
 
 
 .fahrenheit {
-    margin-top: -5.5rem;
     display: flex;
+    align-self: center;
+    margin-top: -4rem;
 }
 
 .active-letter {
@@ -233,4 +236,9 @@
 #fahrenheit-letter {
     cursor: pointer;
     margin-left: 1rem;
+}
+
+.celsius-units {
+    display: flex;
+    flex-direction: row;
 }
