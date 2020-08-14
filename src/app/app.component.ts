@@ -19,6 +19,10 @@ export class AppComponent {
   letterCelsius: boolean = true;
   units: string = "metric";
   mainWeatherImg: string = "./../assets/screenshot.png";
+  onedayWeatherImg: string;
+  twodayWeatherImg: string;
+  threedayWeatherImg: string;
+  weatherForcast: any[] = [];
    // Write the functions that hit the API. You’re going to want functions that can take a location and return the weather data for that location. For now, just console.log() the information.
 
   constructor() {
@@ -41,9 +45,7 @@ export class AppComponent {
 
     const weatherData = await response.json();
 
-    // spinnerWorks.stop();
-    
-    // console.log(weatherData);
+  
 
 
     let weatherArr = {clouds: weatherData.clouds.all, temp: weatherData.main.temp, place: weatherData.name, country: weatherData.sys.country, weatherDesc: weatherData.weather[0].description, id: weatherData.weather[0].id, icon: weatherData.weather.icon}
@@ -51,52 +53,86 @@ export class AppComponent {
   
     this.weatherState = weatherArr;
     this.weatherState.temp = Math.round(this.weatherState.temp);
-    this.weatherState.weatherDesc = this.titleCase(this.weatherState.weatherDesc)
-    
-    console.log(weatherData.weather[0].id)
-    let idFirstDigit = this.weatherState.id.toString().charAt(0);
-    
-    if(idFirstDigit === '2') { this.mainWeatherImg = "./../assets/screenshot_3.png"; } 
-    else if (idFirstDigit === '3') {
-      this.mainWeatherImg = "./../assets/screenshot_7.png";
-    }
-    else if(this.weatherState.id === 500 || this.weatherState.id === 501) {
-      this.mainWeatherImg = "./../assets/screenshot_4.png";
-    }
-    else if(idFirstDigit === '5') {
-      this.mainWeatherImg = "./../assets/screenshot_5.png";
-    }
-    else if(idFirstDigit === '6') {
-      this.mainWeatherImg = "./../assets/screenshot_6.png";
-    }
-    else if(idFirstDigit === '7') {
-      this.mainWeatherImg = "./../assets/screenshot_13.png";
-    }
-    else if(this.weatherState.id === 800) {
-      if(this.weatherState.icon === "01d") {
-      this.mainWeatherImg = "./../assets/screenshot_10.png"}
-      else if (this.weatherState.icon === "01n") {
-        this.mainWeatherImg = "./../assets/screenshot_12.png";
-      };
-    }
-    else if(this.weatherState.id === 801) { 
-      this.mainWeatherImg = "./../assets/screenshot.png";
-    }
-    else if(this.weatherState.id === 802) { 
-      this.mainWeatherImg = "./../assets/screenshot_1.png";
-    }
+    this.weatherState.weatherDesc = this.titleCase(this.weatherState.weatherDesc);
 
-    else if(this.weatherState.id === 803 || this.weatherState.id === "804") { 
-      this.mainWeatherImg = "./../assets/screenshot_2.png";
-    }
+    this.mainWeatherImg = this.getWeatherImage(this.weatherState);
+
+
+    const oneCallResponse = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${weatherData.coord.lat}&lon=${weatherData.coord.lon}&exclude=current,minutely,hourly&appid=10e913130e75c308b518d5e8710fb645&units=${this.units}`)
+
+    const oneCallData = await oneCallResponse.json();
+
+    let oneCallDataArr = [
+      {
+        tempMax: Math.round(oneCallData.daily[0].temp.max), tempMin: Math.round(oneCallData.daily[0].temp.min), id: oneCallData.daily[0].weather[0].id, date: oneCallData.daily[0].dt
+      }, 
+      {
+        tempMax: Math.round(oneCallData.daily[1].temp.max), tempMin: Math.round(oneCallData.daily[1].temp.min), id: oneCallData.daily[1].weather[0].id, date: oneCallData.daily[1].dt
+      },
+      {
+        tempMax: Math.round(oneCallData.daily[2].temp.max), tempMin: Math.round(oneCallData.daily[2].temp.min), id: oneCallData.daily[2].weather[0].id, date: oneCallData.daily[2].dt
+      }
+  ]
+
+    this.weatherForcast = oneCallDataArr;
+    console.log(oneCallData);
+    this.onedayWeatherImg = this.getWeatherImage(oneCallDataArr[0]);
+    this.twodayWeatherImg = this.getWeatherImage(oneCallDataArr[1]);
+    this.threedayWeatherImg = this.getWeatherImage(oneCallDataArr[2]);
+    // spinnerWorks.stop();
+    
+    // console.log(weatherData);
+
 
 
     
-    
 
-    await this.timeout(1000);
+    // await this.timeout(1000);
 
     this.reloadSpinner = false;
+
+
+
+  }
+
+  getWeatherImage(weatherObj) {
+
+
+    let idFirstDigit = weatherObj.id.toString().charAt(0);
+    
+    if(idFirstDigit === '2') { return "./../assets/screenshot_3.png"; } 
+    else if (idFirstDigit === '3') {
+      return "./../assets/screenshot_7.png";
+    }
+    else if(weatherObj.id === 500 || weatherObj === 501) {
+      return "./../assets/screenshot_4.png";
+    }
+    else if(idFirstDigit === '5') {
+      return "./../assets/screenshot_5.png";
+    }
+    else if(idFirstDigit === '6') {
+      return "./../assets/screenshot_6.png";
+    }
+    else if(idFirstDigit === '7') {
+      return "./../assets/screenshot_13.png";
+    }
+    else if(weatherObj.id === 800) {
+      if(weatherObj.icon === "01d") {
+      return "./../assets/screenshot_10.png"}
+      else if (weatherObj.icon === "01n") {
+        return "./../assets/screenshot_12.png";
+      };
+    }
+    else if(weatherObj.id === 801) { 
+      return "./../assets/screenshot.png";
+    }
+    else if(weatherObj.id === 802) { 
+      return "./../assets/screenshot_1.png";
+    }
+
+    else if(weatherObj.id === 803 || weatherObj.id === "804") { 
+      return "./../assets/screenshot_2.png";
+    }
 
 
 

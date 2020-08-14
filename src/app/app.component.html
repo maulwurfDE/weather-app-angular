@@ -102,10 +102,10 @@
     <div class="day-name">MON</div>
     <div class="footer-details">
       <div class="oneday-secondrow">
-    <div class="oneday-icon"><img src="./../assets/screenshot_10.png" class="max"></div>
+    <div class="oneday-icon"><img [src]="onedayWeatherImg" class="max"></div>
     <div class="footer-temp">
-      <div class="highesttemp">31°</div>
-      <div class="lowesttemp">15°</div>
+      <div class="highesttemp">{{weatherForcast[0]?.tempMax}}°</div>
+      <div class="lowesttemp">{{weatherForcast[0]?.tempMin}}°</div>
     </div>
     </div>
 
@@ -116,11 +116,11 @@
     <div class="day-name">TUE</div>
     <div class="oneday-secondrow">
     <div class="oneday-icon">
-      <img src="./../assets/screenshot_4.png" class="max">
+      <img [src]="twodayWeatherImg" class="max">
     </div>
     <div class="footer-temp">
-      <div class="highesttemp">20°</div>
-      <div class="lowesttemp">7°</div>
+      <div class="highesttemp">{{weatherForcast[1]?.tempMax}}°</div>
+      <div class="lowesttemp">{{weatherForcast[1]?.tempMin}}°</div>
       </div>  
     </div>
   </div>
@@ -129,11 +129,11 @@
     <div class="day-name">WED</div>
     <div class="oneday-secondrow">
       <div class="oneday-icon">
-        <img src="./../assets/screenshot_13.png" class="max">
+        <img [src]="threedayWeatherImg" class="max">
       </div>
       <div class="footer-temp">
-        <div class="highesttemp">26°</div>
-        <div class="lowesttemp">11°</div>
+        <div class="highesttemp">{{weatherForcast[2]?.tempMax}}°</div>
+        <div class="lowesttemp">{{weatherForcast[2]?.tempMin}}°</div>
         </div> 
     </div>
 
