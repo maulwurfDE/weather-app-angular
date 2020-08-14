@@ -93,6 +93,9 @@
     margin-top: -10.5rem;
 }
 
+#oneday-three {
+    border-right: none;
+}
 
 .fahrenheit {
     display: flex;

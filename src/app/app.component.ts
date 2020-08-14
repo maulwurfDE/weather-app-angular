@@ -18,6 +18,7 @@ export class AppComponent {
   filtered: any;
   letterCelsius: boolean = true;
   units: string = "metric";
+  mainWeatherImg: string = "./../assets/screenshot.png";
    // Write the functions that hit the API. You’re going to want functions that can take a location and return the weather data for that location. For now, just console.log() the information.
 
   constructor() {
@@ -45,14 +46,56 @@ export class AppComponent {
     // console.log(weatherData);
 
 
-    let weatherArr = {clouds: weatherData.clouds.all, temp: weatherData.main.temp, place: weatherData.name, country: weatherData.sys.country, weatherDesc: weatherData.weather[0].description}
+    let weatherArr = {clouds: weatherData.clouds.all, temp: weatherData.main.temp, place: weatherData.name, country: weatherData.sys.country, weatherDesc: weatherData.weather[0].description, id: weatherData.weather[0].id, icon: weatherData.weather.icon}
 
-    console.log(weatherData);
-
+  
     this.weatherState = weatherArr;
     this.weatherState.temp = Math.round(this.weatherState.temp);
     this.weatherState.weatherDesc = this.titleCase(this.weatherState.weatherDesc)
-    await this.timeout(2000);
+    
+    console.log(weatherData.weather[0].id)
+    let idFirstDigit = this.weatherState.id.toString().charAt(0);
+    
+    if(idFirstDigit === '2') { this.mainWeatherImg = "./../assets/screenshot_3.png"; } 
+    else if (idFirstDigit === '3') {
+      this.mainWeatherImg = "./../assets/screenshot_7.png";
+    }
+    else if(this.weatherState.id === 500 || this.weatherState.id === 501) {
+      this.mainWeatherImg = "./../assets/screenshot_4.png";
+    }
+    else if(idFirstDigit === '5') {
+      this.mainWeatherImg = "./../assets/screenshot_5.png";
+    }
+    else if(idFirstDigit === '6') {
+      this.mainWeatherImg = "./../assets/screenshot_6.png";
+    }
+    else if(idFirstDigit === '7') {
+      this.mainWeatherImg = "./../assets/screenshot_13.png";
+    }
+    else if(this.weatherState.id === 800) {
+      if(this.weatherState.icon === "01d") {
+      this.mainWeatherImg = "./../assets/screenshot_10.png"}
+      else if (this.weatherState.icon === "01n") {
+        this.mainWeatherImg = "./../assets/screenshot_12.png";
+      };
+    }
+    else if(this.weatherState.id === 801) { 
+      this.mainWeatherImg = "./../assets/screenshot.png";
+    }
+    else if(this.weatherState.id === 802) { 
+      this.mainWeatherImg = "./../assets/screenshot_1.png";
+    }
+
+    else if(this.weatherState.id === 803 || this.weatherState.id === "804") { 
+      this.mainWeatherImg = "./../assets/screenshot_2.png";
+    }
+
+
+    
+    
+
+    await this.timeout(1000);
+
     this.reloadSpinner = false;
 
 
