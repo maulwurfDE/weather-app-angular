@@ -18,7 +18,7 @@ export class AppComponent {
   filtered: any;
   letterCelsius: boolean = true;
   units: string = "metric";
-  mainWeatherImg: string = "./../assets/screenshot.png";
+  mainWeatherImg: string;
   onedayWeatherImg: string;
   twodayWeatherImg: string;
   threedayWeatherImg: string;
@@ -87,7 +87,7 @@ export class AppComponent {
 
     
 
-    // await this.timeout(1000);
+    await this.timeout(1500);
 
     this.reloadSpinner = false;
 
@@ -97,41 +97,41 @@ export class AppComponent {
 
   getWeatherImage(weatherObj) {
 
-
+    console.log(weatherObj);
     let idFirstDigit = weatherObj.id.toString().charAt(0);
     
-    if(idFirstDigit === '2') { return "./../assets/screenshot_3.png"; } 
+    if(idFirstDigit === '2') { return "./assets/screenshot_3.png"; } 
     else if (idFirstDigit === '3') {
       return "./../assets/screenshot_7.png";
     }
     else if(weatherObj.id === 500 || weatherObj === 501) {
-      return "./../assets/screenshot_4.png";
+      return "./assets/screenshot_4.png";
     }
     else if(idFirstDigit === '5') {
-      return "./../assets/screenshot_5.png";
+      return "./assets/screenshot_5.png";
     }
     else if(idFirstDigit === '6') {
-      return "./../assets/screenshot_6.png";
+      return "./assets/screenshot_6.png";
     }
     else if(idFirstDigit === '7') {
-      return "./../assets/screenshot_13.png";
+      return "./assets/screenshot_13.png";
     }
     else if(weatherObj.id === 800) {
       if(weatherObj.icon === "01d") {
-      return "./../assets/screenshot_10.png"}
+      return "./assets/screenshot_10.png"}
       else if (weatherObj.icon === "01n") {
-        return "./../assets/screenshot_12.png";
+        return "./assets/screenshot_12.png";
       };
     }
     else if(weatherObj.id === 801) { 
-      return "./../assets/screenshot.png";
+      return "./assets/screenshot.png";
     }
     else if(weatherObj.id === 802) { 
-      return "./../assets/screenshot_1.png";
+      return "./assets/screenshot_1.png";
     }
 
-    else if(weatherObj.id === 803 || weatherObj.id === "804") { 
-      return "./../assets/screenshot_2.png";
+    else if(weatherObj.id === 803 || weatherObj.id === 804) { 
+      return "./assets/screenshot_2.png";
     }
 
 
