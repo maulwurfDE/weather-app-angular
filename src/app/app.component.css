@@ -1,5 +1,4 @@
 
-
 .widget-wrapper {
     display: flex;
     width: 100%;
@@ -115,7 +114,16 @@
 }
 
 .wind-desc {
-    margin-top: 5px;
+    /* margin-top: 5px; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.wind-speed-desc {
+    margin-left: 0.1rem;
+    margin-top: 0.4rem;
 }
 
 .wind-speed {
@@ -135,11 +143,16 @@
     width: 3rem;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 0.1rem;
+    margin-top: 8px;
 }
 
+
+
+
+
+
 .rain-percent {
-    margin-top: 5px;
+    /* margin-top: 5px; */
     font-size: 1.5rem;
 }
 

@@ -1,6 +1,6 @@
 import { Component, OnChanges } from '@angular/core';
 import {spinnerWorks} from "./import.js"
-import { faSync } from '@fortawesome/free-solid-svg-icons';
+import { faSync, faCloud, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faTint, faWind } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-root',
@@ -11,7 +11,10 @@ export class AppComponent {
   faSync = faSync;
   faTint = faTint;
   faWind = faWind;
+  faCloud = faCloud;
+  faSearch = faSearch;
   formCity: String;
+
   formCountry: String;
   weatherState: any = "Nothing searched yet!";
   reloadSpinner: boolean = false;
@@ -48,10 +51,19 @@ export class AppComponent {
   
 
 
-    let weatherArr = {clouds: weatherData.clouds.all, temp: weatherData.main.temp, place: weatherData.name, country: weatherData.sys.country, weatherDesc: weatherData.weather[0].description, id: weatherData.weather[0].id, icon: weatherData.weather.icon}
+    let weatherArr = {clouds: weatherData.clouds.all, temp: weatherData.main.temp, place: weatherData.name, country: weatherData.sys.country, weatherDesc: weatherData.weather[0].description, id: weatherData.weather[0].id, icon: weatherData.weather.icon, wind: weatherData.wind.speed, humidity: weatherData.main.humidity}
 
   
+
     this.weatherState = weatherArr;
+    if(this.units === "metric") {
+      this.weatherState.wind = Math.round((this.weatherState.wind*60*60)/1000);
+    }
+    else if(this.units === "imperial") {
+      this.weatherState.wind = Math.round(this.weatherState.wind);
+    }
+
+    
     this.weatherState.temp = Math.round(this.weatherState.temp);
     this.weatherState.weatherDesc = this.titleCase(this.weatherState.weatherDesc);
 

@@ -24,10 +24,16 @@
 <div class="widget-wrapper">
 
   <div class="widget-header">
-  <div id="search"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <div id="search">
+    
+    <!-- <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
     <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
-  </svg></div>
+  </svg> -->
+
+  <fa-icon [icon]="faSearch" flip="horizontal" style="margin-top: 0.2rem;"></fa-icon>
+
+</div>
   <div id="town">
   <strong>{{ weatherState.place }}</strong><span style="color: grey;">, {{weatherState.country}}</span>
 </div>
@@ -77,17 +83,18 @@
 
   <div id="wind">
     <fa-icon [icon]="faWind" size="2x" id="wind-icon"></fa-icon>
-    <div class="wind-desc"><span class="wind-speed">8</span> <span id="wind-speed-desc">km/h</span></div>
+    <div class="wind-desc"><span class="wind-speed">{{weatherState.wind}}</span> <span class="wind-speed-desc" *ngIf="units === 'metric'"> km/h</span><span class="wind-speed-desc" *ngIf="units === 'imperial'"> mph</span></div>
   </div>
 
   <div id="rain">
     <fa-icon [icon]="faTint" size="2x" id="rain-icon"></fa-icon>
-    <div class="wind-desc rain-percent">59%</div>
+    <div class="wind-desc rain-percent">{{weatherState.humidity}}%</div>
   </div>
 
   <div id="snow">
-    <img src="./../assets/hail.png">
-    <span class="wind-speed">17%</span>
+    <!-- <img src="./../assets/hail.png"> -->
+    <fa-icon [icon]="faCloud" size="2x" id="wind-icon"></fa-icon>
+    <span class="wind-speed">{{weatherState.clouds}}%</span>
   </div>
 
 
