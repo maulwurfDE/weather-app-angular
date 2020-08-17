@@ -24,18 +24,22 @@
 <div class="widget-wrapper">
 
   <div class="widget-header">
-  <div id="search">
+  <div id="search" (click)="showInput = true;">
     
     <!-- <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
     <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
   </svg> -->
 
-  <fa-icon [icon]="faSearch" flip="horizontal" style="margin-top: 0.2rem;"></fa-icon>
+  <fa-icon [icon]="faSearch" flip="horizontal" style="margin-top: 0.2rem; cursor:pointer;"></fa-icon>
 
 </div>
   <div id="town">
-  <strong>{{ weatherState.place }}</strong><span style="color: grey;">, {{weatherState.country}}</span>
+    
+       
+    
+    <input type="text" placeholder="{{weatherState.place}}, {{weatherState.country}}" class="town-input" style="outline: none; border: none; text-decoration-line: underline; text-decoration-style: dashed; text-underline-position: under;" *ngIf="showInput" autofocus [(ngModel)]="formInput">
+  <div *ngIf="!showInput"  (click)="showInput = true;" class="town-default" style="cursor:pointer;"><strong>{{ weatherState.place }}</strong><span style="color: grey;">, {{weatherState.country}}</span></div>
 </div>
 <!-- 
   <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-clockwise" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -43,7 +47,7 @@
     <path fill-rule="evenodd" d="M8.147.146a.5.5 0 0 1 .707 0l2.5 2.5a.5.5 0 0 1 0 .708l-2.5 2.5a.5.5 0 1 1-.707-.708L10.293 3 8.147.854a.5.5 0 0 1 0-.708z"/>
   </svg> -->
 <div id="spinner">
-  <fa-icon [icon]="faSync" [spin]="reloadSpinner"></fa-icon>
+  <fa-icon [icon]="faSync" [spin]="reloadSpinner" style="cursor: pointer;" (click)="parseInput(formInput); showInput=false;"></fa-icon>
 </div>
   <!-- <i class="fas fa-sync fa-spin-hover"></i> -->
 

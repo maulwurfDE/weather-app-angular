@@ -36,6 +36,8 @@
 
 }
 
+
+
 #container {
 
     width: 42rem;
@@ -51,8 +53,16 @@
 
 }
 
-#town {
+.town-default {
     margin-top: 0.1rem;
+}
+
+.town-input {
+    margin-top: -0.15rem;
+}
+
+#town::after {
+    margin-top: -0.35rem;
 }
 
 #search {
@@ -185,6 +195,8 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+
 
 .oneday {
     border-top: 1px solid rgba(211, 211, 211, .37);

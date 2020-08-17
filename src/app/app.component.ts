@@ -14,6 +14,7 @@ export class AppComponent {
   faCloud = faCloud;
   faSearch = faSearch;
   formCity: String;
+  formInput: String;
 
   formCountry: String;
   weatherState: any = "Nothing searched yet!";
@@ -26,6 +27,8 @@ export class AppComponent {
   twodayWeatherImg: string;
   threedayWeatherImg: string;
   weatherForcast: any[] = [];
+  showInput: boolean = false;
+
    // Write the functions that hit the API. You’re going to want functions that can take a location and return the weather data for that location. For now, just console.log() the information.
 
   constructor() {
@@ -50,8 +53,9 @@ export class AppComponent {
 
   
 
+    console.log(weatherData);
 
-    let weatherArr = {clouds: weatherData.clouds.all, temp: weatherData.main.temp, place: weatherData.name, country: weatherData.sys.country, weatherDesc: weatherData.weather[0].description, id: weatherData.weather[0].id, icon: weatherData.weather.icon, wind: weatherData.wind.speed, humidity: weatherData.main.humidity}
+    let weatherArr = {clouds: weatherData.clouds.all, temp: weatherData.main.temp, place: weatherData.name, country: weatherData.sys.country, weatherDesc: weatherData.weather[0].description, id: weatherData.weather[0].id, icon: weatherData.weather[0].icon, wind: weatherData.wind.speed, humidity: weatherData.main.humidity}
 
   
 
@@ -76,13 +80,13 @@ export class AppComponent {
 
     let oneCallDataArr = [
       {
-        tempMax: Math.round(oneCallData.daily[0].temp.max), tempMin: Math.round(oneCallData.daily[0].temp.min), id: oneCallData.daily[0].weather[0].id, date: oneCallData.daily[0].dt
+        tempMax: Math.round(oneCallData.daily[0].temp.max), tempMin: Math.round(oneCallData.daily[0].temp.min), id: oneCallData.daily[0].weather[0].id, date: oneCallData.daily[0].dt, icon: oneCallData.daily[0].weather[0].icon 
       }, 
       {
-        tempMax: Math.round(oneCallData.daily[1].temp.max), tempMin: Math.round(oneCallData.daily[1].temp.min), id: oneCallData.daily[1].weather[0].id, date: oneCallData.daily[1].dt
+        tempMax: Math.round(oneCallData.daily[1].temp.max), tempMin: Math.round(oneCallData.daily[1].temp.min), id: oneCallData.daily[1].weather[0].id, date: oneCallData.daily[1].dt, icon: oneCallData.daily[1].weather[0].icon 
       },
       {
-        tempMax: Math.round(oneCallData.daily[2].temp.max), tempMin: Math.round(oneCallData.daily[2].temp.min), id: oneCallData.daily[2].weather[0].id, date: oneCallData.daily[2].dt
+        tempMax: Math.round(oneCallData.daily[2].temp.max), tempMin: Math.round(oneCallData.daily[2].temp.min), id: oneCallData.daily[2].weather[0].id, date: oneCallData.daily[2].dt, icon: oneCallData.daily[2].weather[0].icon 
       }
   ]
 
@@ -99,13 +103,15 @@ export class AppComponent {
 
     
 
-    await this.timeout(1500);
+    await this.timeout(2000);
 
     this.reloadSpinner = false;
 
 
 
   }
+
+  
 
   getWeatherImage(weatherObj) {
 
@@ -129,11 +135,13 @@ export class AppComponent {
       return "./assets/screenshot_13.png";
     }
     else if(weatherObj.id === 800) {
+      console.log("test" + weatherObj.icon);
       if(weatherObj.icon === "01d") {
-      return "./assets/screenshot_10.png"}
+      return "./assets/screenshot_10.png";
+    }
       else if (weatherObj.icon === "01n") {
         return "./assets/screenshot_12.png";
-      };
+      }
     }
     else if(weatherObj.id === 801) { 
       return "./assets/screenshot.png";
@@ -166,6 +174,13 @@ titleCase(str) {
   return splitStr.join(' '); 
 }
 
+
+parseInput(string) {
+  let strArr = string.split(" ");
+  console.log(strArr);
+  this.getWeather(strArr[0],strArr[1]);
+
+}
 
 
 
