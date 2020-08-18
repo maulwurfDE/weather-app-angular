@@ -134,6 +134,8 @@ export class AppComponent {
   }
     this.searchPlaceholder = this.weatherState.place + ", " + this.weatherState.country; 
     this.formInput = "";
+    // let myContainer: HTMLLinkElement | null = document.querySelector("#appIcon");
+    // myContainer.href = "http://openweathermap.org/img/w/" + this.weatherState.icon + ".png";
     this.reloadSpinner = false;
 
 
