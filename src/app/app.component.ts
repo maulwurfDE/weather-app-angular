@@ -1,7 +1,8 @@
-import { Component, OnChanges } from '@angular/core';
+import { Component, OnChanges, ChangeDetectorRef, Input, SimpleChanges } from '@angular/core';
 import {spinnerWorks} from "./import.js"
 import { faSync, faCloud, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faTint, faWind } from '@fortawesome/free-solid-svg-icons';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,10 +14,10 @@ export class AppComponent {
   faWind = faWind;
   faCloud = faCloud;
   faSearch = faSearch;
-  formCity: String;
+  formCity: String = "Münster";
   formInput: String;
 
-  formCountry: String;
+  formCountry: String = "DE";
   weatherState: any = "Nothing searched yet!";
   reloadSpinner: boolean = false;
   filtered: any;
@@ -28,30 +29,55 @@ export class AppComponent {
   threedayWeatherImg: string;
   weatherForcast: any[] = [];
   showInput: boolean = false;
+  searchInputInvalid: boolean = false;
+  searchPlaceholder: string = "Münster, DE";
 
    // Write the functions that hit the API. You’re going to want functions that can take a location and return the weather data for that location. For now, just console.log() the information.
 
-  constructor() {
+  constructor(private http: HttpClient) {
     // this.getWeather("münster","germany");
-
-    this.getWeather("Münster","Germany");
- 
- 
-
-
+    // this.getWeather("Münster","Germany");
+    this.processResponse("Münster","Germany");
   }
 
 
 
+  searchIconFunction() {
+    if(this.showInput === false ) {
+      this.showInput = true;
+    } else {
+      this.parseInput(this.formInput);
+    }
+
+  }
 
   async getWeather(town,country) {
     // spinnerWorks.spin(document.getElementById('container'));
+    this.searchInputInvalid = false;
     this.reloadSpinner = true;
-    const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${town},${country}&APPID=10e913130e75c308b518d5e8710fb645&units=${this.units}`);
 
-    const weatherData = await response.json();
+  try {
+    const response = await this.http.get(`http://api.openweathermap.org/data/2.5/weather?q=${town},${country}&APPID=10e913130e75c308b518d5e8710fb645&units=${this.units}`).toPromise(); //await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${town},${country}&APPID=10e913130e75c308b518d5e8710fb645&units=${this.units}`);
+    const weatherData = response; //await response.json();
+    console.log('weatherData', weatherData);
+    return weatherData;
+  } catch (err) {
+    console.log(err);
+    this.searchInputInvalid = true;
+    return undefined;
+  }
 
   
+}
+
+
+ async processResponse(town, country) {
+
+  let weatherData: any = await this.getWeather(town,country);
+   console.log("test2");
+   
+  if(weatherData) {
+ 
 
     console.log(weatherData);
 
@@ -102,9 +128,12 @@ export class AppComponent {
 
 
     
-
+    this.showInput=false;
     await this.timeout(2000);
 
+  }
+    this.searchPlaceholder = this.weatherState.place + ", " + this.weatherState.country; 
+    this.formInput = "";
     this.reloadSpinner = false;
 
 
@@ -176,9 +205,19 @@ titleCase(str) {
 
 
 parseInput(string) {
-  let strArr = string.split(" ");
+  let strArr = string.split(",");
   console.log(strArr);
-  this.getWeather(strArr[0],strArr[1]);
+  this.processResponse(strArr[0],strArr[1]);
+
+}
+
+
+onKeydown(event) {
+  if (event.key === "Enter") {
+    this.parseInput(this.formInput);
+  }
+
+
 
 }
 
