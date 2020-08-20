@@ -79,7 +79,7 @@
         </div>
         <div class="footer">
           <div class="oneday">
-            <div class="day-name">MON</div>
+            <div class="day-name">{{weatherState?.futureForecasts[1].date}}</div>
             <div class="footer-details">
               <div class="oneday-secondrow">
                 <div class="oneday-icon">
@@ -93,7 +93,7 @@
             </div>
           </div>
           <div class="oneday">
-            <div class="day-name">TUE</div>
+            <div class="day-name">{{weatherState?.futureForecasts[2].date}}</div>
             <div class="oneday-secondrow">
               <div class="oneday-icon">
                 <img [src]="twodayWeatherImg" class="max">
@@ -105,7 +105,7 @@
             </div>
           </div>
           <div class="oneday" id="oneday-three">
-            <div class="day-name">WED</div>
+            <div class="day-name">{{weatherState?.futureForecasts[3].date}}</div>
             <div class="oneday-secondrow">
               <div class="oneday-icon">
                 <img [src]="threedayWeatherImg" class="max">
