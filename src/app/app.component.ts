@@ -146,9 +146,16 @@ titleCase(str) {
 }
 
 
-parseInput(string) {
-  let strArr = string.split(",");
+parseInput(input: string) {
+
+  let regex = RegExp('.+,.+');
+
+  if (input && regex.test(input) ) {
+  let strArr = input.split(",");
   this.processResponse(strArr[0],strArr[1]);
+  } else {
+    this.searchInputInvalid = true;
+  }
 
 }
 
