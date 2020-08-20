@@ -1,185 +1,127 @@
 <div class="wrapper-overall">
   <div class="centered-wrapper">
-<div class="container-wrapper">
-<div id="container">
-  <div class="container-padding">
-<!-- <h1>Fetch Weather</h1>
-
-<p>Choose a city:</p>
-<div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="inputGroup-sizing-default">City</span>
-  </div>
-  <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" [(ngModel)]="formCity">
-</div>
-<p>...and a country:</p>
-<div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="inputGroup-sizing-default">Country</span>
-  </div>
-  <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" [(ngModel)]="formCountry">
-</div>
-<div class="btn btn-primary" (click)="getWeather(this.formCity,this.formCountry)">Fetch</div> -->
-
-<div class="widget-wrapper">
-
-  <div class="widget-header">
-  <div id="search" (click)="showInput = true;">
-    
-    <!-- <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-    <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
-    <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
-  </svg> -->
-
-  <fa-icon [icon]="faSearch" flip="horizontal" style="margin-top: 0.2rem; cursor:pointer;" (click)="searchIconFunction()"></fa-icon>
-
-</div>
-<form #f="ngForm" name="signupForm">
-
-  <div id="town">
-    
-       
-<div id="search-input-wrapper">
-      <div *ngIf="showInput">
-   <input type="text" [placeholder]="searchPlaceholder" class="town-input" style="outline: none; border: none; text-decoration-line: underline; text-decoration-style: dashed; text-underline-position: under;" autoFocus [(ngModel)]="formInput" pattern=".+,.+" #search2="ngModel" name="search" id="search" (keydown)="onKeydown($event)">
-   <div id="search-invalid"><span *ngIf="searchInputInvalid" style="font-size: 0.8rem; color: red;">Please enter 'town<strong>,</strong> country'. Don't forget the comma.</span></div>
-  </div>
- 
-  <div *ngIf="!showInput"  (click)="showInput = true;" class="town-default" style="cursor:pointer;"><strong>{{ weatherState.place }}</strong><span style="color: grey;">, {{weatherState.country}}</span></div>
-</div>
-
-
-</div> 
-
-</form>
-
-<!-- 
-  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-clockwise" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-    <path fill-rule="evenodd" d="M3.17 6.706a5 5 0 0 1 7.103-3.16.5.5 0 1 0 .454-.892A6 6 0 1 0 13.455 5.5a.5.5 0 0 0-.91.417 5 5 0 1 1-9.375.789z"/>
-    <path fill-rule="evenodd" d="M8.147.146a.5.5 0 0 1 .707 0l2.5 2.5a.5.5 0 0 1 0 .708l-2.5 2.5a.5.5 0 1 1-.707-.708L10.293 3 8.147.854a.5.5 0 0 1 0-.708z"/>
-  </svg> -->
-<div id="spinner">
-  <fa-icon [icon]="faSync" [spin]="reloadSpinner" style="cursor: pointer;" (click)="parseInput(formInput);"></fa-icon>
-</div>
-  <!-- <i class="fas fa-sync fa-spin-hover"></i> -->
-
-  <!-- <img src="./../assets/refresh-icon-6.jpg"> -->
-
-
-</div>
-
-<div class="main-content">
-
-  <div id="image">
-    <img [src]="mainWeatherImg">
-  </div>
-
-  <div class="celsius-units">
-
-    <div class="celsius">
-      <p id="celsius-degrees">{{weatherState.temp}}°</p>
-   
-    </div>
-  
-    <div class="fahrenheit">
-      <div id="celsius-letter" [ngClass]="{'active-letter': letterCelsius, 'inactive-letter': !letterCelsius}"  (click)="units = 'metric'; getWeather('Münster','Germany'); letterCelsius = true;">C</div>
-      <div id="fahrenheit-letter" [ngClass]="{'active-letter': !letterCelsius, 'inactive-letter': letterCelsius}" (click)="units = 'imperial'; getWeather('Münster','Germany'); letterCelsius = false;">F</div>
-    </div>
-  </div>
-
-  <p id="celsius-wording">{{weatherState.weatherDesc}}</p>
-
-
-  </div>
-
-
-
-
-<div id="weather-details">
-
-  <div id="wind">
-    <fa-icon [icon]="faWind" size="2x" id="wind-icon"></fa-icon>
-    <div class="wind-desc"><span class="wind-speed">{{weatherState.wind}}</span> <span class="wind-speed-desc" *ngIf="units === 'metric'"> km/h</span><span class="wind-speed-desc" *ngIf="units === 'imperial'"> mph</span></div>
-  </div>
-
-  <div id="rain">
-    <fa-icon [icon]="faTint" size="2x" id="rain-icon"></fa-icon>
-    <div class="wind-desc rain-percent">{{weatherState.humidity}}%</div>
-  </div>
-
-  <div id="snow">
-    <!-- <img src="./../assets/hail.png"> -->
-    <fa-icon [icon]="faCloud" size="2x" id="wind-icon"></fa-icon>
-    <span class="wind-speed">{{weatherState.clouds}}%</span>
-  </div>
-
-
-
-</div>
-</div>
-  </div>
-
-<div class="footer">
-
-  <div class="oneday">
-    <div class="day-name">MON</div>
-    <div class="footer-details">
-      <div class="oneday-secondrow">
-    <div class="oneday-icon"><img [src]="onedayWeatherImg" class="max"></div>
-    <div class="footer-temp">
-      <div class="highesttemp">{{weatherForcast[0]?.tempMax}}°</div>
-      <div class="lowesttemp">{{weatherForcast[0]?.tempMin}}°</div>
-    </div>
-    </div>
-
-    </div>
-  </div>
-
-  <div class="oneday">
-    <div class="day-name">TUE</div>
-    <div class="oneday-secondrow">
-    <div class="oneday-icon">
-      <img [src]="twodayWeatherImg" class="max">
-    </div>
-    <div class="footer-temp">
-      <div class="highesttemp">{{weatherForcast[1]?.tempMax}}°</div>
-      <div class="lowesttemp">{{weatherForcast[1]?.tempMin}}°</div>
-      </div>  
-    </div>
-  </div>
-
-  <div class="oneday" id="oneday-three">
-    <div class="day-name">WED</div>
-    <div class="oneday-secondrow">
-      <div class="oneday-icon">
-        <img [src]="threedayWeatherImg" class="max">
+    <div class="container-wrapper">
+      <div id="container">
+        <div class="container-padding">
+          <div class="widget-wrapper">
+            <div class="widget-header">
+              <div id="search" (click)="showInput = true;">
+                <fa-icon [icon]="faSearch" flip="horizontal" style="margin-top: 0.2rem; cursor:pointer;"
+                  (click)="searchIconFunction()"></fa-icon>
+              </div>
+              <form #f="ngForm" name="signupForm">
+                <div id="town">
+                  <div id="search-input-wrapper">
+                    <div *ngIf="showInput">
+                      <input type="text" [placeholder]="searchPlaceholder" class="town-input"
+                        style="outline: none; border: none; text-decoration-line: underline; text-decoration-style: dashed; text-underline-position: under;"
+                        autoFocus [(ngModel)]="formInput" pattern=".+,.+" #search2="ngModel" name="search" id="search"
+                        (keydown)="onKeydown($event)">
+                      <div id="search-invalid">
+                        <span *ngIf="searchInputInvalid" style="font-size: 0.8rem; color: red;">Please enter
+                          'town<strong>,</strong> country'. Don't forget the comma.
+                        </span>
+                      </div>
+                    </div>
+                    <div *ngIf="!showInput" (click)="showInput = true;" class="town-default" style="cursor:pointer;">
+                      <strong>{{ weatherState?.place }}</strong><span style="color: grey;">,
+                        {{weatherState?.country}}</span>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <div id="spinner">
+                <fa-icon [icon]="faSync" [spin]="reloadSpinner" style="cursor: pointer;"
+                  (click)="parseInput(formInput);"></fa-icon>
+              </div>
+            </div>
+            <div class="main-content">
+              <div id="image">
+                <img [src]="mainWeatherImg">
+              </div>
+              <div class="celsius-units">
+                <div class="celsius">
+                  <p id="celsius-degrees">{{weatherState?.temp}}°</p>
+                </div>
+                <div class="fahrenheit">
+                  <div id="celsius-letter"
+                    [ngClass]="{'active-letter': letterCelsius, 'inactive-letter': !letterCelsius}"
+                    (click)="units = 'metric'; getWeather('Münster','Germany'); letterCelsius = true;">C
+                  </div>
+                  <div id="fahrenheit-letter"
+                    [ngClass]="{'active-letter': !letterCelsius, 'inactive-letter': letterCelsius}"
+                    (click)="units = 'imperial'; getWeather('Münster','Germany'); letterCelsius = false;">F
+                  </div>
+                </div>
+              </div>
+              <p id="celsius-wording">{{weatherState?.weatherDesc}}</p>
+            </div>
+            <div id="weather-details">
+              <div id="wind">
+                <fa-icon [icon]="faWind" size="2x" id="wind-icon"></fa-icon>
+                <div class="wind-desc">
+                  <span class="wind-speed">{{weatherState?.getWind(units)}}</span> <span class="wind-speed-desc"
+                    *ngIf="units === 'metric'"> km/h</span>
+                  <span class="wind-speed-desc" *ngIf="units === 'imperial'"> mph</span>
+                </div>
+              </div>
+              <div id="rain">
+                <fa-icon [icon]="faTint" size="2x" id="rain-icon"></fa-icon>
+                <div class="wind-desc rain-percent">{{weatherState?.humidity}}%
+                </div>
+              </div>
+              <div id="snow">
+                <fa-icon [icon]="faCloud" size="2x" id="wind-icon"></fa-icon>
+                <span class="wind-speed">{{weatherState?.clouds}}%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer">
+          <div class="oneday">
+            <div class="day-name">MON</div>
+            <div class="footer-details">
+              <div class="oneday-secondrow">
+                <div class="oneday-icon">
+                  <img [src]="onedayWeatherImg" class="max">
+                </div>
+                <div class="footer-temp">
+                  <div class="highesttemp">{{weatherState?.futureForecasts[1].maxTemp}}°</div>
+                  <div class="lowesttemp">{{weatherState?.futureForecasts[1].minTemp}}°</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="oneday">
+            <div class="day-name">TUE</div>
+            <div class="oneday-secondrow">
+              <div class="oneday-icon">
+                <img [src]="twodayWeatherImg" class="max">
+              </div>
+              <div class="footer-temp">
+                <div class="highesttemp">{{weatherState?.futureForecasts[2].maxTemp}}°</div>
+                <div class="lowesttemp">{{weatherState?.futureForecasts[2].minTemp}}°</div>
+              </div>
+            </div>
+          </div>
+          <div class="oneday" id="oneday-three">
+            <div class="day-name">WED</div>
+            <div class="oneday-secondrow">
+              <div class="oneday-icon">
+                <img [src]="threedayWeatherImg" class="max">
+              </div>
+              <div class="footer-temp">
+                <div class="highesttemp">{{weatherState?.futureForecasts[3].maxTemp}}°</div>
+                <div class="lowesttemp">{{weatherState?.futureForecasts[3].minTemp}}°</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="footer-temp">
-        <div class="highesttemp">{{weatherForcast[2]?.tempMax}}°</div>
-        <div class="lowesttemp">{{weatherForcast[2]?.tempMin}}°</div>
-        </div> 
     </div>
-
+    <div class="annotations">
+      <p>Design by <a href="https://lukacvetinovic.com/">Luka Cvetinovic</a>, weather icons created by <a
+          href='https://www.freepik.com/titusurya'>titusurya</a></p>
+    </div>
   </div>
-
-
-
-
-</div>
-
-<!-- <a href="https://icon-library.net/icon/refresh-icon-6.html">Refresh Icon #33369</a> -->
-
-</div>
-
-
-
-</div>
-
-<div class="annotations">
-  <p>Design by <a href="https://lukacvetinovic.com/">Luka Cvetinovic</a>, weather icons created by <a href='https://www.freepik.com/titusurya'>titusurya</a></p>
-
-</div>
-
-</div>
-
 </div>
