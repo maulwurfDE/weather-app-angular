@@ -1,32 +1,25 @@
-# WeatherAppAngular
+# Weather App
 
-This project is still a work in progress. I will update this here with a viewable URL soon, once I've finished the project. 
+A basic weather app. 
 
-Estimated finish time: August 26, 2020
+## Demo
+[Demo](https://nearmint.github.io/weather-app-angular)
 
-<!-- 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version *.
+## Built with
 
-## Development server
+* Angular
+* async/await
+* http.get
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## My way of deploying an Angular project to Github Pages
 
-## Code scaffolding
+```
+git branch gh-pages
+git checkout gh-pages
+git push origin gh-pages
+npm install -g angular-cli-ghpages
+ng build --prod --base-href https://[username].github.io/[repo]/
+sudo chown -R $(whoami) /usr/lib/node_modules/angular-cli-ghpages/
+ngh --dir=dist/[project-name]
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md). -->
