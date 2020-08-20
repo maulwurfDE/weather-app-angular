@@ -46,11 +46,11 @@
                 <div class="fahrenheit">
                   <div id="celsius-letter"
                     [ngClass]="{'active-letter': letterCelsius, 'inactive-letter': !letterCelsius}"
-                    (click)="units = 'metric'; getWeather('Münster','Germany'); letterCelsius = true;">C
+                    (click)="units = 'metric'; processResponse(weatherState.place,weatherState.country); letterCelsius = true;">C
                   </div>
                   <div id="fahrenheit-letter"
                     [ngClass]="{'active-letter': !letterCelsius, 'inactive-letter': letterCelsius}"
-                    (click)="units = 'imperial'; getWeather('Münster','Germany'); letterCelsius = false;">F
+                    (click)="units = 'imperial'; processResponse(weatherState.place,weatherState.country); letterCelsius = false;">F
                   </div>
                 </div>
               </div>
