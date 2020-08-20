@@ -75,8 +75,7 @@ export class Outlook {
     
     @Expose()  
     @Transform( (value, obj) => {
-        
-            var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
             var d = new Date((obj.dt*1000));
             return (d.toString().split(' ')[0].toUpperCase());
 
