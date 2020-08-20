@@ -81,6 +81,12 @@ export class AppComponent {
       this.twodayWeatherImg = this.getWeatherImage(forecast.futureForecasts[2]);
       this.threedayWeatherImg = this.getWeatherImage(forecast.futureForecasts[3]);
       
+      if(this.weatherState.weatherDesc.length >= 15) {
+        document.getElementById('celsius-wording').style.marginTop = "-8.5rem";
+      } else {
+        document.getElementById('celsius-wording').style.marginTop = "-10.5rem";
+      }
+
       this.showInput=false;
       await this.timeout(2000);
 
