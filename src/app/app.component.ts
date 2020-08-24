@@ -171,6 +171,9 @@ export class AppComponent {
 
 parseInput(input: string) {
 
+  if(input === "") {
+    this.getWeatherWithTimeout(this.weatherState.place,this.weatherState.country);
+  } else {
   let regex = RegExp('.+,.+');
 
   if (input && regex.test(input) ) {
@@ -179,6 +182,9 @@ parseInput(input: string) {
   } else {
     this.searchInputInvalid = true;
   }
+
+}
+
 
 }
 
