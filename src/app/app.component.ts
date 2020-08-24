@@ -33,6 +33,7 @@ export class AppComponent {
   searchInputInvalid: boolean = false;
   searchPlaceholder: string = "Münster, DE";
   wind: number;
+  searchInputInvalidText: string = "Please enter \'town<strong>,</strong> country\'. Don\'t forget the comma.";
   
   constructor(private http: HttpClient) {
     this.getWeatherWithTimeout("Münster","Germany");  
@@ -58,6 +59,9 @@ export class AppComponent {
     return weatherData;
   } catch (err) {
     console.log(err);
+    if(err.statusText === "Not Found") {
+      this.searchInputInvalidText = "The town was not found. Please change your input."
+    };
     this.searchInputInvalid = true;
     return undefined;
   }
@@ -180,6 +184,7 @@ parseInput(input: string) {
   let strArr = input.split(",");
   this.getWeatherWithTimeout(strArr[0],strArr[1]);
   } else {
+    this.searchInputInvalidText = `Please enter \'town, country\'. Don\'t forget the comma.`;
     this.searchInputInvalid = true;
   }
 
