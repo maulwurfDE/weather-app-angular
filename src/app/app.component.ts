@@ -32,9 +32,10 @@ export class AppComponent {
   showInput: boolean = false;
   searchInputInvalid: boolean = false;
   searchPlaceholder: string = "Münster, DE";
+  wind: number;
   
   constructor(private http: HttpClient) {
-    this.processResponse("Münster","Germany");  
+    this.getWeatherWithTimeout("Münster","Germany");  
     
   }
 
@@ -67,35 +68,59 @@ export class AppComponent {
 
   async processResponse(town, country) {
 
-    let weatherData: any = await this.getWeather(town,country);   
-    if(weatherData) {
-      
-      const oneCallResponse = await this.http.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${weatherData.coord.lat}&lon=${weatherData.coord.lon}&exclude=current,minutely,hourly&appid=10e913130e75c308b518d5e8710fb645&units=${this.units}`).toPromise(); 
-      const oneCallData = oneCallResponse;
-      weatherData.futureForecasts = oneCallData['daily'];
-      let forecast = plainToClass(Forecast, weatherData, { excludeExtraneousValues: true});
 
-      this.weatherState = forecast;
-      this.mainWeatherImg = this.getWeatherImage(this.weatherState);
-      this.onedayWeatherImg = this.getWeatherImage(forecast.futureForecasts[1]);
-      this.twodayWeatherImg = this.getWeatherImage(forecast.futureForecasts[2]);
-      this.threedayWeatherImg = this.getWeatherImage(forecast.futureForecasts[3]);
       
-      if(this.weatherState.weatherDesc.length >= 15) {
-        document.getElementById('celsius-wording').style.marginTop = "-8.5rem";
-      } else {
-        document.getElementById('celsius-wording').style.marginTop = "-10.5rem";
-      }
+      let weatherData: any = await this.getWeather(town,country);
+  
+      if(weatherData) {
+        
+        const oneCallResponse = await this.http.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${weatherData.coord.lat}&lon=${weatherData.coord.lon}&exclude=current,minutely,hourly&appid=10e913130e75c308b518d5e8710fb645&units=${this.units}`).toPromise(); 
+        const oneCallData = oneCallResponse;
+        weatherData.futureForecasts = oneCallData['daily'];
+        let forecast = plainToClass(Forecast, weatherData, { excludeExtraneousValues: true});
+  
+        this.weatherState = forecast;
+        this.mainWeatherImg = this.getWeatherImage(this.weatherState);
+        this.onedayWeatherImg = this.getWeatherImage(forecast.futureForecasts[1]);
+        this.twodayWeatherImg = this.getWeatherImage(forecast.futureForecasts[2]);
+        this.threedayWeatherImg = this.getWeatherImage(forecast.futureForecasts[3]);
+        
+        if(this.weatherState.weatherDesc.length >= 15) {
+          document.getElementById('celsius-wording').style.marginTop = "-8.5rem";
+        } else {
+          document.getElementById('celsius-wording').style.marginTop = "-10.5rem";
+        }
 
-      this.showInput=false;
-      await this.timeout(2000);
+        this.wind = this.weatherState.getWind(this.units);
+  
+        this.showInput=false;
+  
+
 
     }
+
+  
+  
+
+  }
+
+
+  async getWeatherWithTimeout(town, country) {
+
+    // The idea is to run a timeout and the weather request simultaneously. Then only stop the spinner after the weather request AND timeout have finished.
+
+    console.log("start", new Date());
+    let promiseArr = [this.processResponse(town, country), this.timeout(2000)];
+
+    let result = await Promise.all(promiseArr);
+    console.log("finish", new Date());
+
     this.searchPlaceholder = this.weatherState.place + ", " + this.weatherState.country; 
     this.formInput = "";
     this.reloadSpinner = false;
-
   }
+
+
 
   getWeatherImage(weatherObj) {
 
@@ -143,14 +168,6 @@ export class AppComponent {
 }
 
 
-titleCase(str) {
-  var splitStr = str.toLowerCase().split(' ');
-  for (var i = 0; i < splitStr.length; i++) {
-      splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
-  }
-  return splitStr.join(' '); 
-}
-
 
 parseInput(input: string) {
 
@@ -158,7 +175,7 @@ parseInput(input: string) {
 
   if (input && regex.test(input) ) {
   let strArr = input.split(",");
-  this.processResponse(strArr[0],strArr[1]);
+  this.getWeatherWithTimeout(strArr[0],strArr[1]);
   } else {
     this.searchInputInvalid = true;
   }

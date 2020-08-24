@@ -35,12 +35,9 @@ export class Forecast {
 
     @Expose()
     @Transform( (value, obj) =>  {
-        // capitalize first letter of every word
-        let splitStr = obj.weather[0].description.toLowerCase().split(' ');
-        for (let i = 0; i < splitStr.length; i++) {
-            splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
-        }
-        return splitStr.join(' ');
+     
+        let splitStr = obj.weather[0].description.toLowerCase();
+        return splitStr;
     })
     weatherDesc: string;
 
@@ -77,7 +74,7 @@ export class Outlook {
     @Transform( (value, obj) => {
 
             var d = new Date((obj.dt*1000));
-            return (d.toString().split(' ')[0].toUpperCase());
+            return (d.toString().split(' ')[0]);
 
     })  
     date: Date;

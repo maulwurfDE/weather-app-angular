@@ -110,6 +110,7 @@
     font-size: 2rem;
     margin-left: 19rem;
     margin-top: -10.5rem;
+    text-transform: capitalize;
 }
 
 #oneday-three {
@@ -221,6 +222,7 @@
     font-size: 0.7rem;
     font-weight: bold;
     margin-bottom: 1rem;
+    text-transform: uppercase;
 }
 
 .footer-temp {

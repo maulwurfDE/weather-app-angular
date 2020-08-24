@@ -46,11 +46,11 @@
                 <div class="fahrenheit">
                   <div id="celsius-letter"
                     [ngClass]="{'active-letter': letterCelsius, 'inactive-letter': !letterCelsius}"
-                    (click)="units = 'metric'; processResponse(weatherState.place,weatherState.country); letterCelsius = true;">C
+                    (click)="units = 'metric'; getWeatherWithTimeout(weatherState.place,weatherState.country); letterCelsius = true;">C
                   </div>
                   <div id="fahrenheit-letter"
                     [ngClass]="{'active-letter': !letterCelsius, 'inactive-letter': letterCelsius}"
-                    (click)="units = 'imperial'; processResponse(weatherState.place,weatherState.country); letterCelsius = false;">F
+                    (click)="units = 'imperial'; getWeatherWithTimeout(weatherState.place,weatherState.country); letterCelsius = false;">F
                   </div>
                 </div>
               </div>
@@ -60,7 +60,7 @@
               <div id="wind">
                 <fa-icon [icon]="faWind" size="2x" id="wind-icon"></fa-icon>
                 <div class="wind-desc">
-                  <span class="wind-speed">{{weatherState?.getWind(units)}}</span> <span class="wind-speed-desc"
+                  <span class="wind-speed">{{wind}}</span> <span class="wind-speed-desc"
                     *ngIf="units === 'metric'"> km/h</span>
                   <span class="wind-speed-desc" *ngIf="units === 'imperial'"> mph</span>
                 </div>
@@ -120,8 +120,8 @@
       </div>
     </div>
     <div class="annotations">
-      <p>Design by <a href="https://lukacvetinovic.com/">Luka Cvetinovic</a>, weather icons created by <a
-          href='https://www.freepik.com/titusurya'>titusurya</a></p>
+      <p>Design by <a href="https://lukacvetinovic.com/" target="_blank">Luka Cvetinovic</a>, weather icons created by <a
+          href='https://www.freepik.com/titusurya' target="_blank">titusurya</a></p>
     </div>
   </div>
 </div>
