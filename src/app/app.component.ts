@@ -1,8 +1,7 @@
 import { Component, OnChanges, ChangeDetectorRef, Input, SimpleChanges, OnInit } from '@angular/core';
-import {spinnerWorks} from "./import.js"
 import { faSync, faCloud, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faTint, faWind } from '@fortawesome/free-solid-svg-icons';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaderResponse, HttpHeaders } from '@angular/common/http';
 import { Forecast } from './forecast.class';
 import { plainToClass } from 'class-transformer';
 import { environment } from '../environments/environment'
@@ -18,9 +17,9 @@ export class AppComponent implements OnInit {
   faWind = faWind;
   faCloud = faCloud;
   faSearch = faSearch;
-  formCity = "Münster";
+  formCity = "Santa Barbara";
   formInput: string;
-  formCountry = "DE";
+  formCountry = "US";
   weatherState: Forecast;
   reloadSpinner: boolean = false;
   letterCelsius: boolean = true;
@@ -32,7 +31,7 @@ export class AppComponent implements OnInit {
   weatherForcast: any[];
   showInput: boolean = false;
   searchInputInvalid: boolean = false;
-  searchPlaceholder: string = "Münster, DE";
+  searchPlaceholder: string = "Santa Barbara, US";
   wind: number;
   searchInputInvalidText: string = "Please enter \'town<strong>,</strong> country\'. Don\'t forget the comma.";
   location: any;
@@ -175,41 +174,48 @@ async getTown(lat,lon) {
   getWeatherImage(weatherObj) {
 
     let idFirstDigit = weatherObj.id.toString().charAt(0);
+    let pathVariable;
 
-    if(idFirstDigit === '2') { return "./assets/screenshot_3.png"; } 
+    if(idFirstDigit === '2') { pathVariable = "3"; } 
     else if (idFirstDigit === '3') {
-      return "./../assets/screenshot_7.png";
+      pathVariable = "7";
     }
     else if(weatherObj.id === 500 || weatherObj === 501) {
-      return "./assets/screenshot_4.png";
+      pathVariable = "4";
     }
     else if(idFirstDigit === '5') {
-      return "./assets/screenshot_5.png";
+      pathVariable = "5";
     }
     else if(idFirstDigit === '6') {
-      return "./assets/screenshot_6.png";
+      pathVariable = "6";
     }
     else if(idFirstDigit === '7') {
-      return "./assets/screenshot_13.png";
+      pathVariable = "13";
     }
     else if(weatherObj.id === 800) {
       if(weatherObj.icon === "01d") {
-      return "./assets/screenshot_10.png";
+      pathVariable = "10";
     }
       else if (weatherObj.icon === "01n") {
-        return "./assets/screenshot_12.png";
+        pathVariable = "12";
       }
     }
     else if(weatherObj.id === 801) { 
-      return "./assets/screenshot.png";
+      pathVariable = "0";
     }
     else if(weatherObj.id === 802) { 
-      return "./assets/screenshot_1.png";
+      pathVariable = "1";
     }
 
     else if(weatherObj.id === 803 || weatherObj.id === 804) { 
-      return "./assets/screenshot_2.png";
+      pathVariable = "2";
     }
+
+    let path = "./../assets/";
+    let png = ".png";
+
+    return  path + pathVariable + png;
+    
 
   }
 
