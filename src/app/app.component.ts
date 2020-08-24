@@ -1,17 +1,18 @@
-import { Component, OnChanges, ChangeDetectorRef, Input, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, ChangeDetectorRef, Input, SimpleChanges, OnInit } from '@angular/core';
 import {spinnerWorks} from "./import.js"
 import { faSync, faCloud, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faTint, faWind } from '@fortawesome/free-solid-svg-icons';
 import { HttpClient } from '@angular/common/http';
 import { Forecast } from './forecast.class';
 import { plainToClass } from 'class-transformer';
+import { environment } from '../environments/environment'
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   faSync = faSync;
   faTint = faTint;
   faWind = faWind;
@@ -34,11 +35,56 @@ export class AppComponent {
   searchPlaceholder: string = "Münster, DE";
   wind: number;
   searchInputInvalidText: string = "Please enter \'town<strong>,</strong> country\'. Don\'t forget the comma.";
+  location: any;
+
+  options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+  };
+
+
+  constructor(private http: HttpClient) { 
+
   
-  constructor(private http: HttpClient) {
-    this.getWeatherWithTimeout("Münster","Germany");  
-    
   }
+
+
+  ngOnInit() {
+
+        
+  navigator.geolocation.getCurrentPosition(
+    (pos) => this.getTown(pos.coords.latitude, pos.coords.longitude),
+    (err) => {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+      this.searchInputInvalidText = "GeoIP failed. Please input your city and country."
+      setTimeout(() => this.searchInputInvalid = true, 500);
+      this.getWeatherWithTimeout("Santa Barbara","US");
+    },
+    this.options
+    )
+
+
+  }
+  
+
+async getTown(lat,lon) {
+
+  this.reloadSpinner = true;
+
+  const oneCallResponse = await this.http.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${environment.appId}&units=${this.units}`).toPromise(); 
+
+  await this.getWeatherWithTimeout(oneCallResponse['name'], oneCallResponse['sys'].country);
+
+}
+
+
+  error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+    this.getWeatherWithTimeout("Münster","Germany"); 
+  }
+
+
 
   searchIconFunction() {
     if(this.showInput === false ) {
@@ -53,7 +99,7 @@ export class AppComponent {
     this.reloadSpinner = true;
 
   try {
-    const response = await this.http.get(`https://api.openweathermap.org/data/2.5/weather?q=${town},${country}&APPID=10e913130e75c308b518d5e8710fb645&units=${this.units}`).toPromise(); //await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${town},${country}&APPID=10e913130e75c308b518d5e8710fb645&units=${this.units}`);
+    const response = await this.http.get(`https://api.openweathermap.org/data/2.5/weather?q=${town},${country}&APPID=${environment.appId}&units=${this.units}`).toPromise(); //await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${town},${country}&APPID=10e913130e75c308b518d5e8710fb645&units=${this.units}`);
     const weatherData = response; //await response.json();
     
     return weatherData;
@@ -78,7 +124,7 @@ export class AppComponent {
   
       if(weatherData) {
         
-        const oneCallResponse = await this.http.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${weatherData.coord.lat}&lon=${weatherData.coord.lon}&exclude=current,minutely,hourly&appid=10e913130e75c308b518d5e8710fb645&units=${this.units}`).toPromise(); 
+        const oneCallResponse = await this.http.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${weatherData.coord.lat}&lon=${weatherData.coord.lon}&exclude=current,minutely,hourly&appid=${environment.appId}&units=${this.units}`).toPromise(); 
         const oneCallData = oneCallResponse;
         weatherData.futureForecasts = oneCallData['daily'];
         let forecast = plainToClass(Forecast, weatherData, { excludeExtraneousValues: true});

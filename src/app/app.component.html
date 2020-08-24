@@ -17,19 +17,26 @@
                         style="outline: none; border: none; text-decoration-line: underline; text-decoration-style: dashed; text-underline-position: under;"
                         autoFocus [(ngModel)]="formInput" pattern=".+,.+" #search2="ngModel" name="search" id="search"
                         (keydown)="onKeydown($event)">
-                      <div id="search-invalid">
-                        <span *ngIf="searchInputInvalid" style="font-size: 0.8rem; color: red;">
-                          {{searchInputInvalidText}}
-                          
-                          <!-- Please enter
-                          'town<strong>,</strong> country'. Don't forget the comma. -->
-                        </span>
-                      </div>
+                       
+                      
                     </div>
+
+
                     <div *ngIf="!showInput" (click)="showInput = true;" class="town-default" style="cursor:pointer;">
                       <strong>{{ weatherState?.place }}</strong><span style="color: grey;">,
                         {{weatherState?.country}}</span>
                     </div>
+
+                    <div id="search-invalid">
+                      <span *ngIf="searchInputInvalid" style="font-size: 0.8rem; color: red;">
+                        {{searchInputInvalidText}}
+                        <!-- Please enter
+                        'town<strong>,</strong> country'. Don't forget the comma. -->
+                      </span>
+                    </div>
+                    
+
+                    
                   </div>
                 </div>
               </form>
