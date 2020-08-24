@@ -211,7 +211,7 @@ async getTown(lat,lon) {
       pathVariable = "2";
     }
 
-    let path = "./../assets/";
+    let path = "./assets/";
     let png = ".png";
 
     return  path + pathVariable + png;
