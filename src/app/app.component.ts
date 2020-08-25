@@ -51,14 +51,21 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
 
+    // new ToDo: Save into localstorage that person accepted 
+    if(localStorage['authorizedGeoLocation'] !== "1") {
+      this.getWeatherWithTimeout("Santa Barbara","US");
+    }
         
   navigator.geolocation.getCurrentPosition(
-    (pos) => this.getTown(pos.coords.latitude, pos.coords.longitude),
+    (pos) => {
+      localStorage['authorizedGeoLocation'] = 1;
+      this.getTown(pos.coords.latitude, pos.coords.longitude);
+    },
     (err) => {
       console.warn(`ERROR(${err.code}): ${err.message}`);
       this.searchInputInvalidText = "GeoIP failed. Please input your city and country."
       setTimeout(() => this.searchInputInvalid = true, 500);
-      this.getWeatherWithTimeout("Santa Barbara","US");
+      localStorage['authorizedGeoLocation'] = 0;
     },
     this.options
     )
