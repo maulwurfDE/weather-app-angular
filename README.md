@@ -16,7 +16,7 @@ A basic weather app.
 ```
 git branch gh-pages
 git checkout gh-pages
-git push origin gh-pages
+git push origin gh-pages (only needed once to initialize branch)
 npm install -g angular-cli-ghpages
 ng build --prod --base-href https://[username].github.io/[repo]/
 sudo chown -R $(whoami) /usr/lib/node_modules/angular-cli-ghpages/
