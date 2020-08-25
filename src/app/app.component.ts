@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
 
-    // new ToDo: Save into localstorage that person accepted 
+    // Local Storage is used to save whether a user accepted to share his location. If he didn't share it (yet), we're loading weather data of Santa Barbara by default.
     if(localStorage['authorizedGeoLocation'] !== "1") {
       this.getWeatherWithTimeout("Santa Barbara","US");
     }
