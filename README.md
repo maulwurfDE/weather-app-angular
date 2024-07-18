@@ -3,7 +3,7 @@
 A basic weather app. 
 
 ## Demo
-[Demo](https://nearmint.github.io/weather-app-angular)
+[Demo](https://maulwurfde.github.io/weather-app-angular)
 
 ## Built with
 
